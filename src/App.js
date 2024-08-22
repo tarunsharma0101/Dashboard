@@ -4,10 +4,10 @@ import CardContainer from "./components/CardContainer";
 
 function App() {
   return (
-    <div>
-      <div className=""><Navbar/></div>
-      <div><CardContainer/></div>
-    </div>
+      <div>
+        <div className=""><Navbar/></div>
+        <div><CardContainer/></div>
+      </div>
   );
 }
 

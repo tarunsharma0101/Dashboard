@@ -5,7 +5,7 @@ import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <div className='h-screen bg-blue-50'>
+    <div className='min-h-screen bg-white '>
         <App />
     </div>
     
