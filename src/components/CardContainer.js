@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import AddWidget from './AddWidget';
+import { SearchContext } from '../utils/SerachContext';
 
-const CardContainer = () => {
+const CardContainer = ({name}) => {
 
     const [cards , setCards] = useState([]);
     const [cardName , setCardName] = useState('');
     const [cardData , setCardData] = useState('');
     const [addCards , setAddCards] = useState(false);
+
+    const { searchQuery } = useContext(SearchContext);
+
+    const filterCards = cards.filter((card) =>  card.name.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    console.log(filterCards);
+    
 
 
     useEffect(() => {
@@ -49,8 +57,8 @@ const CardContainer = () => {
 
   return (
     <div>
-        <div className='m-4 text-xl font-bold'><h1>TEXT WIDGET</h1></div>
-            <div className='flex overflow-x-scroll no-scrollbar'>
+        <div className='m-4 text-xl font-bold'><h1>{name}</h1></div>
+            <div className='flex overflow-x-scroll no-scrollbar '>
                 <div>
                 {!addCards && <button  onClick={showInput}><AddWidget/></button> }
 
@@ -75,15 +83,26 @@ const CardContainer = () => {
                 )}
                 </div>
 
-            <div className='flex'>
-                {cards.map((card) => (
-                <div className='rounded-md bg-base-100 w-96 h-56 shadow-xl m-2 flex flex-col justify-evenly items-center border-2 border-black'>
+            {searchQuery ? 
+                <div className='flex'>
+                {filterCards?.map((card) => (
+                <div key={card.id} className='rounded-md bg-base-100 w-96 h-56 shadow-xl m-2 flex flex-col justify-evenly items-center border-2 border-black'>
                     <h1 className='text-center font-bold text-3xl m-3 p-2'>{card.name}</h1>
                     <p className='text-xl font-thin mt-5 text-center '>{card.content}</p>
                     <button className='border-2 m-3 w-6/12  py-2 rounded border-black' onClick={() => deleteCard(card.id)}>Delete</button>
                 </div>
                 ))}
-            </div>
+            </div> : <div className='flex'>
+                {cards.map((card) => (
+                <div key={card.id} className='rounded-md bg-base-100 w-96 h-56 shadow-xl m-2 flex flex-col justify-evenly items-center border-2 border-black'>
+                    <h1 className='text-center font-bold text-3xl m-3 p-2'>{card.name}</h1>
+                    <p className='text-xl font-thin mt-5 text-center '>{card.content}</p>
+                    <button className='border-2 m-3 w-6/12  py-2 rounded border-black' onClick={() => deleteCard(card.id)}>Delete</button>
+                </div>
+                ))}
+            </div>}
+
+            
             </div>
     </div>
   )

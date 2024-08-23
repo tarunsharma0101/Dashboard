@@ -1,13 +1,17 @@
 import React from "react";
 import Navbar from "./components/Navbar";
 import CardContainer from "./components/CardContainer";
+import { SearchProvider } from "./utils/SerachContext";
 
 function App() {
   return (
+    <SearchProvider>
       <div>
-        <div className=""><Navbar/></div>
-        <div><CardContainer/></div>
+        <Navbar/>
+        <CardContainer name={"TEXT WIDGET"}/>
+        <CardContainer name={"RANDOM WIDGET"}/>
       </div>
+    </SearchProvider>
   );
 }
 
